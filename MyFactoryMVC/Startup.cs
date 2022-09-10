@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyFactoryMVC.Data;
+using MyFactoryMVC.Models.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,8 +33,12 @@ namespace MyFactoryMVC
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true) //Email se treba potvrdiit, ruèno u bazi potvrditi ljude
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true) //Email se treba potvrdiit, ruèno u bazi potvrditi ljude
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            
+
             services.AddControllersWithViews();
         }
 
