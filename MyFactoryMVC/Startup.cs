@@ -43,7 +43,7 @@ namespace MyFactoryMVC
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -71,6 +71,24 @@ namespace MyFactoryMVC
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            Task.Run(() => this.CreateRoles(roleManager)).Wait();
+
+
+
+        }
+
+        private async Task CreateRoles(RoleManager<IdentityRole> roleManager)
+        {
+            foreach (string rol in this.Configuration.GetSection("Roles").Get<List<string>>())
+            {
+                if (!await roleManager.RoleExistsAsync(rol))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(rol));
+                }
+            }
         }
     }
+
+   
 }
