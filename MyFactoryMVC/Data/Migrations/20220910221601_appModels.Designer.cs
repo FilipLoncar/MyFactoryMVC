@@ -10,8 +10,8 @@ using MyFactoryMVC.Data;
 namespace MyFactoryMVC.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220910212933_AppModels")]
-    partial class AppModels
+    [Migration("20220910221601_appModels")]
+    partial class appModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

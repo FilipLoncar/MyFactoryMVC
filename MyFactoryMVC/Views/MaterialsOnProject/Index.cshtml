@@ -1,0 +1,40 @@
+﻿@using MyFactoryMVC.Models
+@model IEnumerable<ProductVM>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PruductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaterialsNeeded)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PruductName)                    
+
+                </td>
+                <td>
+                    @foreach (var item2 in item.MaterialsNeeded)
+                    {
+                        @Html.DisplayFor(modelItem => item2.Name)
+                        <span> " ,"</span>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

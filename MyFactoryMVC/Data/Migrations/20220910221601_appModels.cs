@@ -2,7 +2,7 @@
 
 namespace MyFactoryMVC.Data.Migrations
 {
-    public partial class AppModels : Migration
+    public partial class appModels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

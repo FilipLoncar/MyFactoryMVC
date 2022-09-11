@@ -43,7 +43,7 @@ namespace MyFactoryMVC
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, RoleManager<IdentityRole> roleManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -72,21 +72,43 @@ namespace MyFactoryMVC
                 endpoints.MapRazorPages();
             });
 
-            Task.Run(() => this.CreateRoles(roleManager)).Wait();
-
-
-
+            Task.Run(() => this.CreateRoles(roleManager, userManager)).Wait();
         }
 
-        private async Task CreateRoles(RoleManager<IdentityRole> roleManager)
+        private async Task CreateRoles(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
-            foreach (string rol in this.Configuration.GetSection("Roles").Get<List<string>>())
+            if (!await roleManager.RoleExistsAsync("SUPERADMIN"))
             {
-                if (!await roleManager.RoleExistsAsync(rol))
+                await roleManager.CreateAsync(new IdentityRole("SUPERADMIN"));
+
+                var user = new ApplicationUser
                 {
-                    await roleManager.CreateAsync(new IdentityRole(rol));
+                    Id = new Guid().ToString(),
+                    Email = "admin@legitFactory.com",
+                    EmailConfirmed = true,
+                    UserName = "admin@legitFactory.com",
+                    NormalizedEmail = "admin@legitFactory.com".ToUpper(),
+                    NormalizedUserName = "admin@legitFactory.com".ToUpper()
+                };
+
+                var result = await userManager.CreateAsync(user, "SAdm1n!");
+                if (!result.Succeeded)
+                {
+                    throw new Exception("DOOM AND GLOOM!!! KILL IT WITH FIRE!!!");
+                }
+                await userManager.AddToRoleAsync(user, "SUPERADMIN");
+
+                foreach (string rol in this.Configuration.GetSection("Roles").Get<List<string>>())
+                {
+                    if (!await roleManager.RoleExistsAsync(rol))
+                    {
+                        await roleManager.CreateAsync(new IdentityRole(rol));
+                    }
+                   await userManager.AddToRoleAsync(user, rol);
                 }
             }
+
+
         }
     }
 

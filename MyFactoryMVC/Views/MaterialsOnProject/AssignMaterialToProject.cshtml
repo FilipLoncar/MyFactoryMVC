@@ -1,0 +1,119 @@
+﻿@model ProductionViewModel
+
+@{
+    ViewData["Title"] = "Production assigment";
+}
+
+<h4>Employee assigment</h4>
+
+
+<div class="row">
+    <div class="col-12">
+        @{
+
+            var productList = new List<SelectListItem>();
+
+            foreach (var pro in Model.Products)
+            {
+                productList.Add(new SelectListItem
+                {
+                    Text = pro.PruductName,
+                    Value = pro.ProductId.ToString()
+                });
+            }
+        }
+        @Html.DropDownListFor(m => m.Products, productList, "Please select a product")
+        <p>
+            &nbsp;
+        </p>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-12">
+
+        @{
+
+            var materiaList = new List<SelectListItem>();
+
+            foreach (var mat in Model.Materials)
+            {
+                materiaList.Add(new SelectListItem
+                {
+                    Text = mat.Name,
+                    Value = (mat.MaterialId.ToString(), mat.Name).ToString()
+                });
+            }
+        }
+
+        @Html.ListBox("Materials", materiaList)
+        <button id="Material" onclick="insertMaterial()">+</button>
+    </div>
+
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        <p>
+            &nbsp;
+        </p>
+        <textarea style="width:500px; height:500px; resize:none" id="SelectedMaterials" readonly>
+            </textarea>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <p>
+            &nbsp;
+        </p>
+        <button id="sub" onclick="SubmitData()">Insert</button>
+    </div>
+</div>
+
+
+<script>
+    var selectedMaterials = [];
+    function insertMaterial() {
+        var Materialid = '@Html.IdFor( o => o.Materials)';
+        var dropdown = $("#" + Materialid);
+        var value = dropdown.val().toString();
+        var id = value.substring(value.indexOf('(')+1, value.lastIndexOf(','));
+        var name = value.substring(value.indexOf(',') + 2, value.lastIndexOf(')'));
+
+        if (selectedMaterials.indexOf(id) == -1) {
+            selectedMaterials.push(id);
+            console.log(id);
+            console.log(name);
+            var textBox = document.getElementById('SelectedMaterials');
+            if (textBox.value.length == 0) {
+                textBox.value += name;
+            }
+            else {
+                textBox.value += "\r\n" + name;
+            }
+        }
+       
+        console.log(value);
+    }
+    function SubmitData() {
+        var url = '@Url.Action("Insert", "MaterialsOnProject")'; //gives an url to action on controller
+        var ProjectId = '@Html.IdFor( o => o.Products)';
+        var dropdownProj = $("#" + ProjectId);
+        var value = dropdownProj.val();
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+                emp: selectedMaterials,
+                proj: value
+            },
+            contentType: "application/x-www-form-urlencoded",
+            dataType: "json",
+            success: function (msg) {
+                window.location.href = '@Url.Action("Index", "MaterialsOnProject")';
+                }
+        });
+    }
+</script>
