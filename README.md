@@ -21,4 +21,4 @@ Pravo (rola) admina omogućuje prodadavanje rola korisniku (User Roles)
 
 
 Aplikacija sadrži AplicationDBContext koji omogućuje CRUDE operacije
-Aplikacija sadrži ApplyMigration te ukoliko na korisnikovom računalu ne postoji baza, apliakcija stavra bazu potrebnu za svoj rad.
+Aplikacija sadrži ApplyMigration te ukoliko na korisnikovom računalu ne postoji baza, aplikacija stavra bazu potrebnu za svoj rad.
