@@ -20,4 +20,4 @@ Pravo (rola) radnika omogućuje korisniku da kreira proizvod (Products) koji bi 
 Pravo (rola) admina omogućuje prodadavanje rola korisniku (User Roles)
 
 
-Aplikacija sadrži AplicationDBContext te ukoliko na korisnikovom računalu ne postoji baza, apliakcija stavra bazu potrebnu za svoj rad
+Aplikacija sadrži AplicationDBContext te ukoliko na korisnikovom računalu ne postoji baza, apliakcija stavra bazu potrebnu za svoj rad i omogućuje CRUDE operacije
