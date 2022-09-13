@@ -18,3 +18,6 @@ Administator svakom novom registriranom korisniku dodaje rolu jer on ima pristup
 Pravo (rola) skaldištara omogućuje korisniku da u skladište unosi materijale (Materials) koji će se korisniti prilikom kreiranja proizvoda. Kako bi se mogla pridijeliti mjerna jedinica uz proivod, skladištar ima i dozvolu kreiranja mjerne jedinice (MesureUnits).
 Pravo (rola) radnika omogućuje korisniku da kreira proizvod (Products) koji bi tvornica mogla proizvesti. Isto tako ima pristup popisu materijala koji su potrebni da bi se taj prozvod proizveo(Materials on Project) i  može pridodati materijal proizvodu (Asign Materials)
 Pravo (rola) admina omogućuje prodadavanje rola korisniku (User Roles)
+
+
+Aplikacija sadrži AplicationDBContext te ukoliko na korisnikovom računalu ne postoji baza, apliakcija stavra bazu potrebnu za svoj rad
