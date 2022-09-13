@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace MyFactoryMVC.Controllers
 {
     [Authorize]
-    [Authorize(Roles = "SUPERADMIN")]
+    [Authorize(Roles = "SUPERADMIN, Admin")]
     public class UserRolesController : Controller
     {       
         private readonly RoleManager<IdentityRole> _roleManager;

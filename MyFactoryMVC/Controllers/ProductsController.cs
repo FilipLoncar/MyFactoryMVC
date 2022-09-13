@@ -12,8 +12,7 @@ using MyFactoryMVC.Models;
 namespace MyFactoryMVC.Controllers
 {
     [Authorize]
-    [Authorize(Roles = "SUPERADMIN")]
-    [Authorize(Roles = "Radnik")]
+    [Authorize(Roles = "SUPERADMIN, Radnik")]
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;

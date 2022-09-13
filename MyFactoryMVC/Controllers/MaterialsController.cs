@@ -12,8 +12,7 @@ using MyFactoryMVC.Models;
 namespace MyFactoryMVC.Controllers
 {
     [Authorize]
-    [Authorize(Roles = "SUPERADMIN")]
-    [Authorize(Roles = "Skladistar")]
+    [Authorize(Roles = "SUPERADMIN, Skladistar")]
     public class MaterialsController : Controller
     {
         private readonly ApplicationDbContext _context;

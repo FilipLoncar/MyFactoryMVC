@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 namespace MyFactoryMVC.Controllers
 {
     [Authorize]
-    [Authorize(Roles = "SUPERADMIN")]
-    [Authorize(Roles = "Radnik")]
+    [Authorize(Roles = "SUPERADMIN, Radnik")]
     public class MaterialsOnProjectController : Controller
     {
         private readonly ApplicationDbContext _applicationDbContext;
